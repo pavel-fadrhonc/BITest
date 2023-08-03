@@ -4,7 +4,7 @@
 #include "BITFramework/Component/Custom/Position.h"
 #include "BITFramework/Entity/Core/EntityManager.h"
 
-void Grid::AddEntity(BITFramework::Entity& entity, char sign)
+void Grid::AddEntity(std::weak_ptr<bf::Entity> entity, char sign)
 {   
     m_Entities.emplace_back(entity, sign);
 }
@@ -13,10 +13,19 @@ void Grid::Display()
 {
     std::map<int, char> entitySigns{};
 
+    // cleanup
+    for (auto it = m_Entities.begin(); it != m_Entities.end();)
+    {
+        if (it->first.expired())
+            it = m_Entities.erase(it);
+        else
+            ++it;
+    }
+
     // add records for entities
     for (auto [entity, sign] : m_Entities)
     {
-        if (auto pos = BITFramework::EntityManager::Instance().GetComponent<BITFramework::Position>(entity))
+        if (auto pos = BITFramework::EntityManager::Instance().GetComponent<BITFramework::Position>(*entity.lock()))
         {
             if (!IsInBounds(pos->GetPosVec3()))
                 continue;

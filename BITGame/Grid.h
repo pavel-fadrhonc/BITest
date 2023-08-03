@@ -13,7 +13,7 @@ public:
         RefreshGridSize();
     }
     
-    void AddEntity(BITFramework::Entity& entity, char sign);
+    void AddEntity(std::weak_ptr<bf::Entity> entity, char sign);
     void Display();
     
     const float& GetStep() { return m_Step; }
@@ -33,7 +33,7 @@ private:
     std::pair<vec3, vec3> m_Boundaries;
     std::vector<
         std::pair<
-            std::reference_wrapper<
+            std::weak_ptr<
                 BITFramework::Entity>,
             char>>
     m_Entities{};

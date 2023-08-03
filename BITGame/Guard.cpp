@@ -2,7 +2,7 @@
 
 #include "Guard.h"
 #include "PlayerLostEvent.h"
-#include "PlayerTag.h"
+#include "PlayerComponent.h"
 
 namespace BITGame
 {
@@ -29,7 +29,7 @@ namespace BITGame
 
     void Guard::OnCollision(const BITFramework::Entity& entity) const
     {
-        auto playerTag = BITFramework::EntityManager::Instance().GetComponent<PlayerTag>(entity);
+        auto playerTag = BITFramework::EntityManager::Instance().GetComponent<PlayerComponent>(entity);
         if (playerTag)
         {
             BITFramework::EventDispatcher::Instance().DispatchEvent(PlayerLostEvent{});

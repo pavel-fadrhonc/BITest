@@ -4,7 +4,7 @@
 #include "Game.h"
 #include "Grid.h"
 #include "helpers.h"
-#include "PlayerTag.h"
+#include "PlayerComponent.h"
 
 namespace BITGame
 {
@@ -13,10 +13,10 @@ namespace BITGame
     void Game::BuildLevel()
     {
         // build player
-        m_PlayerEntity = &bf::EntityManager::Instance().CreateEntity();
-        bf::EntityAction::Create<bf::InitMover>(*m_PlayerEntity, PLAYER_START_POSITION, bf::vec3::left());
-        auto playerTag = std::make_shared<PlayerTag>(*m_PlayerEntity, std::string{PLAYER_NAME});
-        bf::EntityManager::Instance().AddComponent(*m_PlayerEntity, playerTag);
+        m_PlayerEntity = bf::EntityManager::Instance().CreateEntity();
+        bf::EntityAction::Create<bf::InitMover>(*m_PlayerEntity.lock(), PLAYER_START_POSITION, bf::vec3::left());
+        auto playerTag = std::make_shared<PlayerComponent>(*m_PlayerEntity.lock(), std::string{PLAYER_NAME});
+        bf::EntityManager::Instance().AddComponent(*m_PlayerEntity.lock(), playerTag);
         
     
         // auto& e1 = EntityManager::Instance().CreateEntity();
@@ -27,10 +27,10 @@ namespace BITGame
 
         Grid* grid = new Grid(1, { GRID_SIZE * -0.5f, GRID_SIZE * 0.5f});
         m_Grid.reset(grid);
-        m_Grid->AddEntity(*m_PlayerEntity, 'n');
+        m_Grid->AddEntity(m_PlayerEntity, 'n');
 
         // TODO: subscribe to player lost event
-        // TODO: place diamond somwhere on the map
+        // TODO: place diamond somwehere on the map
         // TODO: make player be able to pick the diamond up
         // TODO: create collision handler for when the player returns with the diamond, it fires the PlayerWon event
         // TODO: create component containing patrol positions and action that moves the entity between them
@@ -119,7 +119,7 @@ namespace BITGame
     
     void Game::MoveCommand::Execute() const
     {
-        Game::Instance().m_PlayerEntity->getActionManager().InvokeAll(&bf::MoveInDirection::Update, DELTA_TIME);
+        Game::Instance().m_PlayerEntity.lock()->getActionManager().InvokeAll(&bf::MoveInDirection::Update, DELTA_TIME);
         bf::println("Player and guards moved");
     }
 
@@ -200,7 +200,7 @@ namespace BITGame
 
     void Game::DirectionCommand::Execute() const
     {
-        Game::Instance().m_PlayerEntity->getActionManager().InvokeAll(&bf::MoveInDirection::SetDirection, m_Direction);
+        Game::Instance().m_PlayerEntity.lock()->getActionManager().InvokeAll(&bf::MoveInDirection::SetDirection, m_Direction);
         bf::println("Player direction set");
     }
 }

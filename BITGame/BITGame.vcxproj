@@ -94,7 +94,7 @@
     <ClCompile Include="GameEntry.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Guard.cpp" />
-    <ClCompile Include="PlayerTag.cpp" />
+    <ClCompile Include="PlayerComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BITFramework\BITFramework.vcxproj">
@@ -108,7 +108,7 @@
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Guard.h" />
     <ClInclude Include="PlayerLostEvent.h" />
-    <ClInclude Include="PlayerTag.h" />
+    <ClInclude Include="PlayerComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -42,7 +42,7 @@ namespace BITGame
         static std::unique_ptr<Game> s_Instance;
         
         std::unique_ptr<Grid> m_Grid;
-        BITFramework::Entity* m_PlayerEntity;
+        std::weak_ptr<bf::Entity> m_PlayerEntity;
         BITFramework::MoveInDirection* m_PlayerMoveAction;
         GameStateType m_GameState{GameStateType::PLAYING};
 

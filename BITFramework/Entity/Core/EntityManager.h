@@ -8,7 +8,7 @@ namespace BITFramework
     class EntityManager
     {
     public:
-        using EntityCollection = std::vector<std::unique_ptr<Entity>>;
+        using EntityCollection = std::vector<std::shared_ptr<Entity>>;
         
         EntityManager(const EntityManager& other) = delete;
         EntityManager& operator=(const EntityManager& other) = delete;
@@ -17,7 +17,8 @@ namespace BITFramework
         
         static EntityManager& Instance() {return *s_Instance;}
         
-        Entity& CreateEntity();
+        std::weak_ptr<Entity> CreateEntity();
+        void DeleteEntity(const std::weak_ptr<Entity>& Entity);
 
         EntityCollection::const_iterator cbegin() const { return m_Entities.cbegin(); }
         EntityCollection::const_iterator cend() const { return m_Entities.cend(); }
