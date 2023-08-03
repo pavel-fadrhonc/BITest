@@ -1,0 +1,2 @@
+ShortComings:
+Custom EntityActions should have Init method to use to initialize themselves like getting some components or other actions. Currently the initialization happens in construction before the whole entity is constructed.

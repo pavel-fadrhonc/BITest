@@ -1,0 +1,14 @@
+You play as Nico - an elusive thief that's part of elite organization CHOCKMA. They are alway able to obtain most precious and rare artefacts availible.
+Your mission is to infiltrate heavily protected mansion and steal the purple diamond - latest hit amongs the top 0.1%.
+Your collegue Brom already turned off all security and also light and you roped down to the room with the diamond.
+The room is pitch black and multiple guards are roaming the space. You both can't see anything but you have an advantage.
+You are armed with heat scanner that projects into your high tech glasses. You have a topdown view of the room and can see where guards are at any given moment.
+Do not come in contact with any guard and you should be fine. Get in the middle of the room, steal the diamond and get back.
+GOOD LUCK!
+
+Commands
+S: scan the room and show the current state of it.
+M: move yourself and guards in direction. Essentially perform a turn of the game.
+D [N|NE|E|SE|S|SW|W|NW]: set your moving direction to one of 8 cardinal directions
+H: display help
+O: display mission objective
