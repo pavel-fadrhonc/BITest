@@ -2,6 +2,7 @@
 
 #include "bitpch.h"
 
+#include "helpers.h"
 #include "Core/vec3.h"
 #include "Entity/Core/EntityManager.h"
 #include "Object/EntityAction/Custom/Collide.h"

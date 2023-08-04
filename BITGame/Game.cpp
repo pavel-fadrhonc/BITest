@@ -6,13 +6,15 @@
 #include "Components/DiamondComponent.h"
 #include "Grid.h"
 #include "helpers.h"
+#include "Actions/ExitAction.h"
 #include "Actions/PlayerCollision.h"
 #include "Components/PlayerComponent.h"
+#include "Events/PlayerWonEvent.h"
 
 namespace BITGame
 {
-    std::unique_ptr<Game> Game::s_Instance = std::unique_ptr<Game>(new Game);     
-    
+    std::unique_ptr<Game> Game::s_Instance = std::unique_ptr<Game>(new Game);
+
     void Game::BuildLevel()
     {
         // build player
@@ -30,6 +32,10 @@ namespace BITGame
         bf::EntityManager::Instance().AddComponent(*diamondEntity.lock(), diamondComp);
         auto diamondPos = std::make_shared<bf::Position>(*diamondEntity.lock(), bf::vec3{8, 9, 0});
         bf::EntityManager::Instance().AddComponent(*diamondEntity.lock(), diamondPos);
+
+        // build exit
+        auto exitEntity = bf::EntityManager::Instance().CreateEntity();
+        bf::EntityAction::Create<ExitAction>(*exitEntity.lock(), PLAYER_START_POSITION);
         
     
         // auto& e1 = EntityManager::Instance().CreateEntity();
@@ -40,8 +46,16 @@ namespace BITGame
 
         Grid* grid = new Grid(1, { GRID_SIZE * -0.5f, GRID_SIZE * 0.5f});
         m_Grid.reset(grid);
-        m_Grid->AddEntity(m_PlayerEntity, 'n');
         m_Grid->AddEntity(diamondEntity, 'd');
+        m_Grid->AddEntity(exitEntity, 'e');
+        m_Grid->AddEntity(m_PlayerEntity, 'n');
+
+        m_GameEntities.emplace_back(diamondEntity);
+        m_GameEntities.emplace_back(exitEntity);
+        m_GameEntities.emplace_back(m_PlayerEntity);
+
+        BITFramework::EventDispatcher::Instance().Subscribe<PlayerWonEvent>(*this);
+        BITFramework::EventDispatcher::Instance().Subscribe<PlayerLostEvent>(*this);
 
         // TODO: subscribe to player lost event
         // TODO: place diamond somwehere on the map -- DONE
@@ -82,7 +96,17 @@ namespace BITGame
         else
             bf::println("You lost!");
     }
-    
+
+    void Game::HandleEvent(const PlayerWonEvent& event)
+    {
+        m_GameState = GameStateType::WON;
+    }
+
+    void Game::HandleEvent(const PlayerLostEvent& event)
+    {
+        m_GameState = GameStateType::LOST;
+    }
+
     void Game::WriteOutStory() const
     {
         std::cout << R"(
@@ -133,9 +157,9 @@ namespace BITGame
     
     void Game::MoveCommand::Execute() const
     {
-        Game::Instance().m_PlayerEntity.lock()->getActionManager().InvokeAll(&bf::EntityAction::Update, DELTA_TIME);
-
+        Game::Instance().m_Grid->Update(DELTA_TIME);
         bf::EntityManager::Instance().Update();
+        Game::Instance().m_Grid->Cleanup();
         
         bf::println("Player and guards moved");
     }

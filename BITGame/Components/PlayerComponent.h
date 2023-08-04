@@ -14,6 +14,7 @@ namespace BITGame
         ~PlayerComponent() override = default;
 
         void SetHasDiamond(bool hasDiamond) { m_HasDiamond = hasDiamond; }
+        bool HasDiamond() const { return m_HasDiamond; }
 
     private:
         bool m_HasDiamond{false};

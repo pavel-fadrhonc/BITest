@@ -1,6 +1,8 @@
 ﻿#include "BITGameCommon.h"
 
 #include "Grid.h"
+
+#include "Game.h"
 #include "BITFramework/Component/Custom/Position.h"
 #include "BITFramework/Entity/Core/EntityManager.h"
 
@@ -12,15 +14,6 @@ void Grid::AddEntity(std::weak_ptr<bf::Entity> entity, char sign)
 void Grid::Display()
 {
     std::map<int, char> entitySigns{};
-
-    // cleanup
-    for (auto it = m_Entities.begin(); it != m_Entities.end();)
-    {
-        if (it->first.expired())
-            it = m_Entities.erase(it);
-        else
-            ++it;
-    }
 
     // add records for entities
     for (auto [entity, sign] : m_Entities)
@@ -64,6 +57,25 @@ void Grid::RefreshGridSize()
 {
     auto [min, max] = m_Boundaries;
     m_GridSize = { (max.getX() - min.getX()) / m_Step, (max.getY() - min.getY()) / m_Step };
+}
+
+void Grid::Update(float dt)
+{
+    for(auto entity : m_Entities)
+    {
+        entity.first.lock()->getActionManager().InvokeAll(&bf::EntityAction::Update, dt);
+    }
+}
+
+void Grid::Cleanup()
+{
+    for (auto it = m_Entities.begin(); it != m_Entities.end();)
+    {
+        if (it->first.expired())
+            it = m_Entities.erase(it);
+        else
+            ++it;
+    }
 }
 
 bool Grid::IsInBounds(const vec3& pos)

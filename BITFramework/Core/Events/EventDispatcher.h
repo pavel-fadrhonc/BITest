@@ -4,12 +4,12 @@ namespace BITFramework
 {
     template
     <typename TEvent>
-    class EventHandler
+    class IEventHandler
     {
     public:
         virtual void HandleEvent(const TEvent& event) = 0;
         
-        virtual ~EventHandler() = default;
+        virtual ~IEventHandler() = default;
     };
     
     class EventDispatcher
@@ -24,7 +24,7 @@ namespace BITFramework
 
         template
         <typename TEvent>
-        void Subscribe(EventHandler<TEvent>& handler)
+        void Subscribe(IEventHandler<TEvent>& handler)
         {
             m_Handlers[typeid(TEvent).hash_code()].push_back(&handler);
         }
@@ -36,7 +36,7 @@ namespace BITFramework
             auto handlers = m_Handlers[typeid(event).hash_code()];
             for (auto handler : handlers)
             {
-                static_cast<EventHandler<TEvent>*>(handler)->HandleEvent(event);
+                static_cast<IEventHandler<TEvent>*>(handler)->HandleEvent(event);
             }
         }
 

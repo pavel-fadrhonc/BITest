@@ -21,6 +21,12 @@ public:
 
     void SetStep(float step) { m_Step = step; RefreshGridSize(); }
     void SetBoundaries(std::pair<vec3, vec3> boundaries) { m_Boundaries = boundaries; RefreshGridSize(); }
+
+    void Update(float dt);
+    /**
+     * \brief Has to be done after EntityManager::Update() so that we remove entities that were destroyed
+     */
+    void Cleanup();
     
 private:
     bool IsInBounds(const vec3& pos);

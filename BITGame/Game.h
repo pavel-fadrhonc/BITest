@@ -2,10 +2,12 @@
 
 #include "BITGameCommon.h"
 #include "Grid.h"
+#include "Events/PlayerLostEvent.h"
+#include "Events/PlayerWonEvent.h"
 
 namespace BITGame
 {
-    class Game
+    class Game : public bf::IEventHandler<PlayerWonEvent>, public bf::IEventHandler<PlayerLostEvent>
     {
     public:
         enum class GameStateType
@@ -27,6 +29,9 @@ namespace BITGame
         Game& operator=(Game&&) = delete;
 
         static Game& Instance() { return *s_Instance; }
+
+        void HandleEvent(const PlayerWonEvent& event) override;
+        void HandleEvent(const PlayerLostEvent& event) override;
         
     public:
         void BuildLevel();
@@ -40,7 +45,8 @@ namespace BITGame
     
     private:
         static std::unique_ptr<Game> s_Instance;
-        
+
+        std::vector<std::weak_ptr<bf::Entity>> m_GameEntities;
         std::unique_ptr<Grid> m_Grid;
         std::weak_ptr<bf::Entity> m_PlayerEntity;
         BITFramework::MoveInDirection* m_PlayerMoveAction;

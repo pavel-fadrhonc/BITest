@@ -6,8 +6,6 @@ namespace BITGame
     class Guard : public BITFramework::EntityAction, public BITFramework::ICollisionHandler
     {
     public:
-        constexpr static float COLLIDE_DISTANCE = 1.0f;
-        
         explicit Guard(
             BITFramework::Entity& owningEntity,
             const BITFramework::vec3& position,

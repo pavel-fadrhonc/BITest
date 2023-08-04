@@ -90,6 +90,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Actions\ExitAction.cpp" />
     <ClCompile Include="Actions\Guard.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -326,14 +327,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actions\ExitAction.h" />
     <ClInclude Include="Actions\Guard.h" />
     <ClInclude Include="Actions\PlayerCollision.h" />
     <ClInclude Include="BITGameCommon.h" />
     <ClInclude Include="Components\DiamondComponent.h" />
+    <ClInclude Include="Components\ExitTagComponent.h" />
     <ClInclude Include="Components\PlayerComponent.h" />
+    <ClInclude Include="Events\PlayerLostEvent.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Grid.h" />
-    <ClInclude Include="PlayerLostEvent.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Events\PlayerWonEvent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

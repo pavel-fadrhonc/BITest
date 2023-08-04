@@ -4,3 +4,5 @@ Custom EntityActions should have Init method to use to initialize themselves lik
 Things like deleting and entity from collision handler should be scheduled and postponed and then processed in some defined order. That usually takes place during a frame where the gameplay logic might mark something as deleted but
 all the deleted objects get processed at the end of the frame. Here I kind of simulate that a bit with weak_ptr but it quite weak (ehm) solution.
  - I eventually had to implement this because the shortcomings has come to fruition even in such a small scope
+ 
+The order of adding actions on entites or just creating entites matter if you update them all in bulk based on that order. It might be good to introduce some dependency declaration in actions so that they can be properly scheduled.
