@@ -20,7 +20,7 @@ namespace BITGame
         constexpr static BITFramework::vec3 PLAYER_START_POSITION { 9.0f, 9.0f, 0.0f };
         constexpr static BITFramework::vec3 GRID_SIZE { 20.0f, 20.0f, 2.0f };
         constexpr static char PLAYER_NAME[5] { "Nico" };
-        constexpr static float COLLIDE_DISTANCE = 1.0f;
+        constexpr static float COLLIDE_DISTANCE = 0.5;
         constexpr static float COLLIDE_DISTANCE_SQ = COLLIDE_DISTANCE * COLLIDE_DISTANCE;
         constexpr static float DELTA_TIME = 1.0f;
 

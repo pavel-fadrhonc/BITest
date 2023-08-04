@@ -17,7 +17,8 @@ namespace BITFramework
 
         void UnregisterObject(const std::shared_ptr<T>& obj)
         {
-            auto objPos = std::find(m_Objects.begin(), m_Objects.end(), [&obj](auto ptr){ return *ptr == *obj; });
+            auto objPos = std::find(m_Objects.begin(), m_Objects.end(),
+                [&obj](auto ptr){ return *ptr == *obj; });
             if (objPos != m_Objects.end())
             {
                 m_Objects.RemoveFirst(objPos);

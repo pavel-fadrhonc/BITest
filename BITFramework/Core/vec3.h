@@ -2,6 +2,8 @@
 
 namespace BITFramework
 {
+    constexpr float FLOAT_DELTA = 0.0001f; // this might fail for sufficiently large numbers for our use case it's fine
+    
     class vec3
     {
     public:
@@ -60,6 +62,9 @@ namespace BITFramework
         void normalize()
         {
             float length = this->length();
+            if (length < FLOAT_DELTA)
+                return;
+            
             m_x /= length;
             m_y /= length;
             m_z /= length;
