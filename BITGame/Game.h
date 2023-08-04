@@ -21,6 +21,7 @@ namespace BITGame
         constexpr static BITFramework::vec3 GRID_SIZE { 20.0f, 20.0f, 2.0f };
         constexpr static char PLAYER_NAME[5] { "Nico" };
         constexpr static float COLLIDE_DISTANCE = 1.0f;
+        constexpr static float COLLIDE_DISTANCE_SQ = COLLIDE_DISTANCE * COLLIDE_DISTANCE;
         constexpr static float DELTA_TIME = 1.0f;
 
         Game(const Game&) = delete;

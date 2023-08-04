@@ -7,6 +7,7 @@
 #include "Grid.h"
 #include "helpers.h"
 #include "Actions/ExitAction.h"
+#include "Actions/Guard.h"
 #include "Actions/PlayerCollision.h"
 #include "Components/PlayerComponent.h"
 #include "Events/PlayerWonEvent.h"
@@ -30,38 +31,46 @@ namespace BITGame
         auto diamondEntity = bf::EntityManager::Instance().CreateEntity();
         auto diamondComp = std::make_shared<DiamondComponent>(*diamondEntity.lock());
         bf::EntityManager::Instance().AddComponent(*diamondEntity.lock(), diamondComp);
-        auto diamondPos = std::make_shared<bf::Position>(*diamondEntity.lock(), bf::vec3{8, 9, 0});
+        //auto diamondPos = std::make_shared<bf::Position>(*diamondEntity.lock(), bf::vec3{8, 9, 0});
+        auto diamondPos = std::make_shared<bf::Position>(*diamondEntity.lock(), bf::vec3::zero());
         bf::EntityManager::Instance().AddComponent(*diamondEntity.lock(), diamondPos);
 
         // build exit
         auto exitEntity = bf::EntityManager::Instance().CreateEntity();
         bf::EntityAction::Create<ExitAction>(*exitEntity.lock(), PLAYER_START_POSITION);
-        
-    
-        // auto& e1 = EntityManager::Instance().CreateEntity();
-        // auto& mover1 = EntityAction::Create<InitMover>(e1, vec3(3, -3, 0), vec3::right());
-        //
-        // auto& e2 = EntityManager::Instance().CreateEntity();
-        // auto& mover2 = EntityAction::Create<InitMover>(e2, vec3(0, -3, 0), vec3::down());
 
+        // build guards
+        auto guard1 = bf::EntityManager::Instance().CreateEntity();
+        bf::EntityAction::Create<Guard>(*guard1.lock(), bf::vec3{-2, 5, 0},
+            std::vector{bf::vec3{-7, 5, 0}, bf::vec3{7, 5, 0}});
+
+        auto guard2 = bf::EntityManager::Instance().CreateEntity();
+        bf::EntityAction::Create<Guard>(*guard2.lock(), bf::vec3{-3, -3, 0},
+            std::vector{
+                bf::vec3{-3, -3, 0},
+                bf::vec3{3, -3, 0},
+                bf::vec3{3, 3, 0},
+                bf::vec3{3, -3, 0},
+            });
+
+        // create grid
         Grid* grid = new Grid(1, { GRID_SIZE * -0.5f, GRID_SIZE * 0.5f});
         m_Grid.reset(grid);
         m_Grid->AddEntity(diamondEntity, 'd');
         m_Grid->AddEntity(exitEntity, 'e');
         m_Grid->AddEntity(m_PlayerEntity, 'n');
+        m_Grid->AddEntity(guard1, 'g');
+        m_Grid->AddEntity(guard2, 'g');
 
+        // add entities that we will update
         m_GameEntities.emplace_back(diamondEntity);
         m_GameEntities.emplace_back(exitEntity);
         m_GameEntities.emplace_back(m_PlayerEntity);
+        m_GameEntities.emplace_back(guard1);
+        m_GameEntities.emplace_back(guard2);
 
         BITFramework::EventDispatcher::Instance().Subscribe<PlayerWonEvent>(*this);
         BITFramework::EventDispatcher::Instance().Subscribe<PlayerLostEvent>(*this);
-
-        // TODO: subscribe to player lost event
-        // TODO: place diamond somwehere on the map -- DONE
-        // TODO: make player be able to pick the diamond up -- DONE
-        // TODO: create collision handler for when the player returns with the diamond, it fires the PlayerWon event
-        // TODO: create component containing patrol positions and action that moves the entity between them
     }
 
     void Game::Play()
@@ -92,9 +101,9 @@ namespace BITGame
         }
 
         if (m_GameState == GameStateType::WON)
-            bf::println("You won!");
+            bf::println("You've reached the exit with diamond and won!");
         else
-            bf::println("You lost!");
+            bf::println("You got caught, you lost!");
     }
 
     void Game::HandleEvent(const PlayerWonEvent& event)
@@ -200,9 +209,8 @@ namespace BITGame
 
         std::string paramsMut = params;
         // trim start spaces
-        paramsMut.erase(paramsMut.begin(), std::find_if(paramsMut.begin(), paramsMut.end(), [](unsigned char ch) {
-            return !std::isspace(ch);
-        }));
+        paramsMut.erase(paramsMut.begin(), std::find_if(paramsMut.begin(), paramsMut.end(),
+            [](unsigned char ch) { return !std::isspace(ch); }));
 
         auto checkSecond = [this](char c)
         {

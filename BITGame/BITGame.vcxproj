@@ -241,6 +241,7 @@
       <AdditionalIncludeDirectories>C:\Projects\Random\BITest\;C:\Projects\Random\BITest\/BITFramework</AdditionalIncludeDirectories>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
+    <ClCompile Include="Components\PatrolComponent.cpp" />
     <ClCompile Include="Components\PlayerComponent.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -333,6 +334,7 @@
     <ClInclude Include="BITGameCommon.h" />
     <ClInclude Include="Components\DiamondComponent.h" />
     <ClInclude Include="Components\ExitTagComponent.h" />
+    <ClInclude Include="Components\PatrolComponent.h" />
     <ClInclude Include="Components\PlayerComponent.h" />
     <ClInclude Include="Events\PlayerLostEvent.h" />
     <ClInclude Include="Game.h" />

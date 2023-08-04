@@ -11,7 +11,7 @@ namespace BITFramework
 
         void Update(float dt) override;
 
-        void SetDirection(const vec3& direction) { m_Direction = direction; }
+        void SetDirection(const vec3& direction) { m_Direction = direction; m_Direction.normalize(); }
 
     private:
         vec3 m_Direction;

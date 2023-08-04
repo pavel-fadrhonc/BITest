@@ -47,10 +47,10 @@ void Grid::Display()
 int Grid::GetIndex(const vec3& pos)
 {
     // converts pos to position in grid and then to index
-    auto [gridPosX, gridPosY] = std::make_pair(pos.getX() - m_Boundaries.first.getX() / m_Step,
-                                  pos.getY() - m_Boundaries.first.getY() / m_Step);
+    auto [gridPosX, gridPosY] = std::make_pair(std::floor(pos.getX() - m_Boundaries.first.getX() / m_Step),
+                                  std::floor(pos.getY() - m_Boundaries.first.getY() / m_Step));
 
-    return gridPosY * m_GridSize.first + gridPosX;
+    return gridPosY * static_cast<int>(std::floor(m_GridSize.first)) + gridPosX;
 }
 
 void Grid::RefreshGridSize()

@@ -10,7 +10,9 @@ namespace BITFramework
 {
     MoveInDirection::MoveInDirection(Entity& owningEntity, const vec3& direction)
         : BITFramework::EntityAction(owningEntity), m_Direction(direction)
-    { }
+    {
+        m_Direction.normalize();
+    }
 
     void MoveInDirection::Update(float dt)
     {

@@ -12,20 +12,33 @@ namespace BITGame
     Guard::Guard(
         bf::Entity& owningEntity,
         const bf::vec3& position,
-        const bf::vec3& direction)
+        const std::vector<bf::vec3>& waypoints)
         : EntityAction(owningEntity)
     {
         m_Position = std::make_shared<bf::Position>(m_Entity, position);
         bf::EntityManager::Instance().AddComponent(m_Entity, m_Position);
+
+        m_PatrolComponent = std::make_shared<PatrolComponent>(m_Entity, waypoints);
+        m_CurrentWaypoint = m_PatrolComponent->GetWaypoints().cbegin();
+
+        auto direction = *m_CurrentWaypoint - m_Position->GetPosVec3();
+        
         m_MoveAction = &Create<bf::MoveInDirection>(m_Entity, direction);
         Create<bf::Collide>(m_Entity, Game::COLLIDE_DISTANCE);
     }
 
     void Guard::Update(float dt)
     {
-        m_MoveAction->Update(dt);
+        if (m_Position->GetPosVec3().distanceToSquared(*m_CurrentWaypoint) < Game::COLLIDE_DISTANCE_SQ)
+        {
+            ++m_CurrentWaypoint;
+            if (m_CurrentWaypoint == m_PatrolComponent->GetWaypoints().cend())
+            {
+                m_CurrentWaypoint = m_PatrolComponent->GetWaypoints().cbegin();
+            }
 
-        std::cout << *m_Position << '\n';
+            m_MoveAction->SetDirection(*m_CurrentWaypoint - m_Position->GetPosVec3());
+        }
     }
 
     void Guard::OnCollision(BITFramework::Entity& entity) const
