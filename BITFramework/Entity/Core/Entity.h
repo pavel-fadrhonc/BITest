@@ -7,6 +7,8 @@ namespace BITFramework
     class Entity final
     {
     public:
+        friend class EntityManager;
+        
         Entity(int id);
 
         int getId() const {return m_Id;}
@@ -18,6 +20,8 @@ namespace BITFramework
     private:
         int m_Id;
         EntityActionManager m_ActionManager;
+
+        bool m_MarkedForDeletion{false};
     };    
 }
 

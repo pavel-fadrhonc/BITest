@@ -6,7 +6,7 @@ namespace BITFramework
     class ICollisionHandler
     {
     public:
-        virtual void OnCollision(const Entity& entity) const = 0;
+        virtual void OnCollision(Entity& entity) const = 0;
         
         virtual ~ICollisionHandler() = default;
     };

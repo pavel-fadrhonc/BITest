@@ -1,8 +1,8 @@
-﻿#include "BITGameCommon.h"
+﻿#include "../BITGameCommon.h"
 
 #include "Guard.h"
-#include "PlayerLostEvent.h"
-#include "PlayerComponent.h"
+#include "../PlayerLostEvent.h"
+#include "../Components/PlayerComponent.h"
 
 namespace BITGame
 {
@@ -27,7 +27,7 @@ namespace BITGame
         std::cout << *m_Position << '\n';
     }
 
-    void Guard::OnCollision(const BITFramework::Entity& entity) const
+    void Guard::OnCollision(BITFramework::Entity& entity) const
     {
         auto playerTag = BITFramework::EntityManager::Instance().GetComponent<PlayerComponent>(entity);
         if (playerTag)

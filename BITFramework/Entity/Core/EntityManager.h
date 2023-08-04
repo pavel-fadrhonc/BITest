@@ -18,7 +18,9 @@ namespace BITFramework
         static EntityManager& Instance() {return *s_Instance;}
         
         std::weak_ptr<Entity> CreateEntity();
-        void DeleteEntity(const std::weak_ptr<Entity>& Entity);
+        void DeleteEntity(Entity* Entity);
+
+        void Update();
 
         EntityCollection::const_iterator cbegin() const { return m_Entities.cbegin(); }
         EntityCollection::const_iterator cend() const { return m_Entities.cend(); }
@@ -46,6 +48,8 @@ namespace BITFramework
     private:
         EntityManager()
         {}
+
+        void DeleteEntityImpl(Entity* entity);
         
         int m_NextEntityId {};
         EntityCollection m_Entities{};

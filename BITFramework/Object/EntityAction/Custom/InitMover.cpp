@@ -18,10 +18,6 @@ namespace BITFramework
     }
 
     void InitMover::Update(float dt)
-    {
-        m_MoveAction->Update(dt);
-
-        //std::cout << *m_Position << '\n';
-    }
+    { }
 }
 

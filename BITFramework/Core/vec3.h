@@ -86,9 +86,9 @@ namespace BITFramework
         float distanceToSquared(const vec3& vec) const
         {
             return
-                vec.m_x - m_x * vec.m_x - m_x +
-                vec.m_y - m_y * vec.m_y - m_y +
-                vec.m_z - m_z * vec.m_z - m_z;
+                (vec.m_x - m_x) * (vec.m_x - m_x) +
+                (vec.m_y - m_y) * (vec.m_y - m_y) +
+                (vec.m_z - m_z) * (vec.m_z - m_z);
         }
 
     private:

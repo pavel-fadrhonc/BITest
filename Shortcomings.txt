@@ -1,2 +1,6 @@
 ShortComings:
 Custom EntityActions should have Init method to use to initialize themselves like getting some components or other actions. Currently the initialization happens in construction before the whole entity is constructed.
+
+Things like deleting and entity from collision handler should be scheduled and postponed and then processed in some defined order. That usually takes place during a frame where the gameplay logic might mark something as deleted but
+all the deleted objects get processed at the end of the frame. Here I kind of simulate that a bit with weak_ptr but it quite weak (ehm) solution.
+ - I eventually had to implement this because the shortcomings has come to fruition even in such a small scope

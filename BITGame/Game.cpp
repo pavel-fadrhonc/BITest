@@ -2,9 +2,12 @@
 #include <iostream>
 
 #include "Game.h"
+
+#include "Components/DiamondComponent.h"
 #include "Grid.h"
 #include "helpers.h"
-#include "PlayerComponent.h"
+#include "Actions/PlayerCollision.h"
+#include "Components/PlayerComponent.h"
 
 namespace BITGame
 {
@@ -14,9 +17,19 @@ namespace BITGame
     {
         // build player
         m_PlayerEntity = bf::EntityManager::Instance().CreateEntity();
-        bf::EntityAction::Create<bf::InitMover>(*m_PlayerEntity.lock(), PLAYER_START_POSITION, bf::vec3::left());
-        auto playerTag = std::make_shared<PlayerComponent>(*m_PlayerEntity.lock(), std::string{PLAYER_NAME});
-        bf::EntityManager::Instance().AddComponent(*m_PlayerEntity.lock(), playerTag);
+        auto& playerEntity = *m_PlayerEntity.lock();
+        bf::EntityAction::Create<bf::InitMover>(playerEntity, PLAYER_START_POSITION, bf::vec3::left());
+        auto playerTag = std::make_shared<PlayerComponent>(playerEntity, std::string{PLAYER_NAME});
+        bf::EntityManager::Instance().AddComponent(playerEntity, playerTag);
+        bf::EntityAction::Create<PlayerCollision>(playerEntity);
+        bf::EntityAction::Create<bf::Collide>(playerEntity, COLLIDE_DISTANCE);
+
+        // build diamond
+        auto diamondEntity = bf::EntityManager::Instance().CreateEntity();
+        auto diamondComp = std::make_shared<DiamondComponent>(*diamondEntity.lock());
+        bf::EntityManager::Instance().AddComponent(*diamondEntity.lock(), diamondComp);
+        auto diamondPos = std::make_shared<bf::Position>(*diamondEntity.lock(), bf::vec3{8, 9, 0});
+        bf::EntityManager::Instance().AddComponent(*diamondEntity.lock(), diamondPos);
         
     
         // auto& e1 = EntityManager::Instance().CreateEntity();
@@ -28,10 +41,11 @@ namespace BITGame
         Grid* grid = new Grid(1, { GRID_SIZE * -0.5f, GRID_SIZE * 0.5f});
         m_Grid.reset(grid);
         m_Grid->AddEntity(m_PlayerEntity, 'n');
+        m_Grid->AddEntity(diamondEntity, 'd');
 
         // TODO: subscribe to player lost event
-        // TODO: place diamond somwehere on the map
-        // TODO: make player be able to pick the diamond up
+        // TODO: place diamond somwehere on the map -- DONE
+        // TODO: make player be able to pick the diamond up -- DONE
         // TODO: create collision handler for when the player returns with the diamond, it fires the PlayerWon event
         // TODO: create component containing patrol positions and action that moves the entity between them
     }
@@ -119,7 +133,10 @@ namespace BITGame
     
     void Game::MoveCommand::Execute() const
     {
-        Game::Instance().m_PlayerEntity.lock()->getActionManager().InvokeAll(&bf::MoveInDirection::Update, DELTA_TIME);
+        Game::Instance().m_PlayerEntity.lock()->getActionManager().InvokeAll(&bf::EntityAction::Update, DELTA_TIME);
+
+        bf::EntityManager::Instance().Update();
+        
         bf::println("Player and guards moved");
     }
 

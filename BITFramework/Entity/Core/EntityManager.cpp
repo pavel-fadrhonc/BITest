@@ -17,15 +17,36 @@ namespace BITFramework
         return m_Entities.back();
     }
 
-    void EntityManager::DeleteEntity(const std::weak_ptr<Entity>& entity)
+    void EntityManager::DeleteEntity(Entity* entity)
     {
-        if (entity.expired())
-            return;
+        assert(entity != nullptr);
 
-        auto it = std::find(m_Entities.begin(), m_Entities.end(), entity.lock());
+        entity->m_MarkedForDeletion = true;
+    }
+
+    void EntityManager::Update()
+    {
+        decltype(m_Entities.begin()) it; 
+        while((it = std::find_if(m_Entities.begin(), m_Entities.end(),
+            [&](auto ptr)
+            {
+                return ptr->m_MarkedForDeletion; 
+            }))
+            != m_Entities.end())
+        {
+            DeleteEntityImpl(it->get());
+        }
+    }
+
+    void EntityManager::DeleteEntityImpl(Entity* entity)
+    {
+        assert(entity != nullptr);
+
+        auto it = std::find_if(m_Entities.begin(), m_Entities.end(),
+            [&](auto ptr){ return ptr.get() == entity; });
         if (it != m_Entities.end())
         {
-            m_Components.erase(entity.lock()->getId());
+            m_Components.erase(entity->getId());
             m_Entities.erase(it);
         }
     }

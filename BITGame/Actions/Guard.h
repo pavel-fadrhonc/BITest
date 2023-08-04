@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "BITGameCommon.h"
+#include "../BITGameCommon.h"
 
 namespace BITGame
 {
@@ -14,7 +14,7 @@ namespace BITGame
             const BITFramework::vec3& direction);
 
         void Update(float dt) override;
-        void OnCollision(const BITFramework::Entity& entity) const override;
+        void OnCollision(BITFramework::Entity& entity) const override;
 
     private:
         BITFramework::MoveInDirection* m_MoveAction;

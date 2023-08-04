@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "BITGameCommon.h"
+#include "../BITGameCommon.h"
 
 namespace BITGame 
 {
@@ -12,6 +12,11 @@ namespace BITGame
         { }
 
         ~PlayerComponent() override = default;
+
+        void SetHasDiamond(bool hasDiamond) { m_HasDiamond = hasDiamond; }
+
+    private:
+        bool m_HasDiamond{false};
     };
 }
 
