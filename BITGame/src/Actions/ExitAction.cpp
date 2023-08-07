@@ -1,8 +1,7 @@
 ﻿#include "ExitAction.h"
 
 #include "../Game.h"
-#include "BITGame/Components/ExitTagComponent.h"
-#include "BITGame/Components/PlayerComponent.h"
+#include "Components/ExitTagComponent.h"
 
 namespace BITGame
 {

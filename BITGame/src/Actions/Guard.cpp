@@ -1,9 +1,9 @@
-﻿#include "../BITGameCommon.h"
+﻿#include "BITGameCommon.h"
 
 #include "Guard.h"
-#include "../Events/PlayerLostEvent.h"
-#include "../Components/PlayerComponent.h"
-#include "../Game.h"
+#include "Events/PlayerLostEvent.h"
+#include "Components/PlayerComponent.h"
+#include "Game.h"
 
 namespace BITGame
 {

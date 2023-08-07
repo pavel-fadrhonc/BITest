@@ -2,9 +2,8 @@
 
 #include "Grid.h"
 
-#include "Game.h"
-#include "BITFramework/Component/Custom/Position.h"
-#include "BITFramework/Entity/Core/EntityManager.h"
+#include "Component/Custom/Position.h"
+#include "Entity/Core/EntityManager.h"
 
 void Grid::AddEntity(std::weak_ptr<bf::Entity> entity, char sign)
 {   

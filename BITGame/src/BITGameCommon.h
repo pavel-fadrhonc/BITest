@@ -1,6 +1,6 @@
 #pragma once
 
-#include "bitpch.h"
+#include "../../BITFramework/src/bitpch.h"
 
 #include "helpers.h"
 #include "Core/vec3.h"

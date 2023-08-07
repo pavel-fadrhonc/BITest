@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "../BITGameCommon.h"
+#include "BITGameCommon.h"
 
 namespace BITGame 
 {

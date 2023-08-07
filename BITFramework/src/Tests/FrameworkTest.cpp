@@ -1,7 +1,6 @@
 ﻿#include "bitpch.h"
 #include "FrameworkTest.h"
 
-#include "helpers.h"
 #include "Entity/Core/EntityManager.h"
 #include "Object/EntityAction/Core/EntityAction.h"
 #include "Object/EntityAction/Custom/MoveInDirection.h"

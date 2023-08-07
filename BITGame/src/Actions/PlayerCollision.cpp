@@ -1,11 +1,11 @@
-﻿#include "../BITGameCommon.h"
+﻿#include "BITGameCommon.h"
 
 #include "PlayerCollision.h"
 
-#include "../Components/DiamondComponent.h"
-#include "BITGame/Components/ExitTagComponent.h"
-#include "BITGame/Components/PlayerComponent.h"
-#include "BITGame/Events/PlayerWonEvent.h"
+#include "Components/DiamondComponent.h"
+#include "Components/ExitTagComponent.h"
+#include "Components/PlayerComponent.h"
+#include "Events/PlayerWonEvent.h"
 
 namespace BITGame
 {

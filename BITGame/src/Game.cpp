@@ -168,27 +168,27 @@ namespace BITGame
     void Game::WriteOutStory() const
     {
         std::cout << R"(
-        You play as Nico - an elusive thief that's part of secret elite organization CHOCKMA. They are alway able to obtain most precious and rare artefacts available.\n
-        Your mission is to infiltrate heavily protected mansion and steal the purple diamond - latest hit amongst the top 0.1%.\n
-        Your colleague Brom already turned off all security and also lights and you roped down to the room with the diamond.\n
-        The room is pitch black and multiple guards are roaming the space. Neither of you can see anything but you have an advantage.\n
-        You are armed with heat scanner that projects into your high tech glasses. You have a topdown view of the room and can see where guards are at any given moment.\n
-        Do not come in contact with any guard and you should be fine. Get in the middle of the room, steal the diamond and get to the exit!.\n
-        GOOD LUCK!\n
+        You play as Nico - an elusive thief that's part of secret elite organization CHOCKMA. They are alway able to obtain most precious and rare artefacts available.
+        Your mission is to infiltrate heavily protected mansion and steal the purple diamond - latest hit amongst the top 0.1%.
+        Your colleague Brom already turned off all security and also lights and you roped down to the room with the diamond.
+        The room is pitch black and multiple guards are roaming the space. Neither of you can see anything but you have an advantage.
+        You are armed with heat scanner that projects into your high tech glasses. You have a topdown view of the room and can see where guards are at any given moment.
+        Do not come in contact with any guard and you should be fine. Get in the middle of the room, steal the diamond and get to the exit!.
+        GOOD LUCK!
                 )";
     }
 
     void Game::WriteOutControls() const
     {
         std::cout << R"(
-        Commands\n
-        S: scan the room and show the current state of it.\n
-        M: move yourself and guards in direction. Essentially perform a turn of the game.\n
-        D [N|NE|E|SE|S|SW|W|NW]: set your moving direction to one of 8 cardinal directions\n
-            You can also enter "D 0" to stop moving until you change it\n
-        H: display help\n
-        O: display mission objective\n
-        Radar symbols: e:exit, d:diamond, n:player, g:guard\n
+        Commands
+        S: scan the room and show the current state of it.
+        M: move yourself and guards in direction. Essentially perform a turn of the game.
+        D [N|NE|E|SE|S|SW|W|NW]: set your moving direction to one of 8 cardinal directions
+            You can also enter "D 0" to stop moving until you change it
+        H: display help
+        O: display mission objective
+        Radar symbols: e:exit, d:diamond, n:player, g:guard
         )";
     }
 

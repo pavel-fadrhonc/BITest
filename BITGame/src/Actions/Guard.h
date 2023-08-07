@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "../BITGameCommon.h"
-#include "BITGame/Components/PatrolComponent.h"
+#include "BITGameCommon.h"
+#include "Components/PatrolComponent.h"
 
 namespace BITGame
 {
