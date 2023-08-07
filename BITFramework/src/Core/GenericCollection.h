@@ -202,7 +202,7 @@ namespace BITFramework
         {
             if (m_Size == m_Capacity)
             {
-                m_Capacity *= 1.5f;
+                m_Capacity = static_cast<size_t>(m_Capacity * 1.5f);
                 T* newArr = new T[m_Capacity];
                 
                 std::copy(m_Array, m_Array + size(), newArr);
@@ -259,7 +259,7 @@ namespace BITFramework
             size_t cap = INITIAL_CAPACITY;
 
             while (cap < size)
-                cap *= 1.5f;
+                cap = static_cast<size_t>(cap * 1.5f);
 
             return cap;
         }

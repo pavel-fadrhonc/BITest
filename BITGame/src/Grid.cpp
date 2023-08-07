@@ -48,13 +48,15 @@ int Grid::GetIndex(const vec3& pos)
     auto [gridPosX, gridPosY] = std::make_pair(std::floor(pos.getX() - m_Boundaries.first.getX() / m_Step),
                                   std::floor(pos.getY() - m_Boundaries.first.getY() / m_Step));
 
-    return gridPosY * static_cast<int>(std::floor(m_GridSize.first)) + gridPosX;
+    return static_cast<int>(gridPosY * std::floor(m_GridSize.first) + gridPosX);
 }
 
 void Grid::RefreshGridSize()
 {
     auto [min, max] = m_Boundaries;
-    m_GridSize = { (max.getX() - min.getX()) / m_Step, (max.getY() - min.getY()) / m_Step };
+    m_GridSize = {
+        static_cast<int>(std::round((max.getX() - min.getX()) / m_Step)),
+        static_cast<int>(std::round((max.getY() - min.getY()) / m_Step)) };
 }
 
 void Grid::Update(float dt)
