@@ -13,8 +13,11 @@ namespace BITFramework
 
         void Update(float dt) override;
 
+    protected:
+        std::ostream& print(std::ostream& os) const override;
+        
     private:
-        MoveInDirection* m_MoveAction;
+        std::weak_ptr<MoveInDirection> m_MoveAction;
         std::shared_ptr<Position> m_Position;
     };
 }

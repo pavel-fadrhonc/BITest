@@ -22,8 +22,8 @@ namespace BITGame
         m_PlayerEntity = bf::EntityManager::Instance().CreateEntity();
         auto& playerEntity = *m_PlayerEntity.lock();
         bf::EntityAction::Create<bf::InitMover>(playerEntity, PLAYER_START_POSITION, bf::vec3::left());
-        auto playerTag = std::make_shared<PlayerComponent>(playerEntity, std::string{PLAYER_NAME});
-        bf::EntityManager::Instance().AddComponent(playerEntity, playerTag);
+        auto playerComp = std::make_shared<PlayerComponent>(playerEntity, std::string{PLAYER_NAME});
+        bf::EntityManager::Instance().AddComponent(playerEntity, playerComp);
         bf::EntityAction::Create<PlayerCollision>(playerEntity);
         bf::EntityAction::Create<bf::Collide>(playerEntity, COLLIDE_DISTANCE);
 

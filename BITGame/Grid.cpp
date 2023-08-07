@@ -41,7 +41,6 @@ void Grid::Display()
         }
         std::cout << std::endl;
     }
-
 }
 
 int Grid::GetIndex(const vec3& pos)

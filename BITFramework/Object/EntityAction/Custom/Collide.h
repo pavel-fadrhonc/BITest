@@ -14,6 +14,10 @@ namespace BITFramework
         void Update(float dt) override;
 
         void SetHandler(CollisionHandler* handler) { m_Handler = handler; }
+
+    protected:
+        std::ostream& print(std::ostream& os) const override;
+        
     private:
         float m_CollideDistance;
         float m_CollideDistanceSquared;

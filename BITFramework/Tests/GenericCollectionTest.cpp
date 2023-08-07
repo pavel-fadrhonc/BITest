@@ -66,5 +66,7 @@ namespace BITFramework
         col_int4.Remove(find10());
         assert(col_int4.size() == MAX_CAPACITY);
         assert(find10() == col_int4.end());
+
+        println("Collection tests ran successfully!");
     }
 }

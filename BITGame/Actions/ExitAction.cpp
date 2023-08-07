@@ -13,5 +13,12 @@ namespace BITGame
         auto exitComp = std::make_shared<ExitTagComponent>(m_Entity);
         bf::EntityManager::Instance().AddComponent(m_Entity, exitComp);
     }
+
+    std::ostream& ExitAction::print(std::ostream& os) const
+    {
+        os << "ExitAction()";
+
+        return os;
+    }
 }
 

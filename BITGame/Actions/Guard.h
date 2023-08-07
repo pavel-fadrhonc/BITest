@@ -16,8 +16,11 @@ namespace BITGame
         void Update(float dt) override;
         void OnCollision(BITFramework::Entity& entity) const override;
 
+    protected:
+        std::ostream& print(std::ostream& os) const override;
+        
     private:
-        BITFramework::MoveInDirection* m_MoveAction;
+        std::weak_ptr<bf::MoveInDirection> m_MoveAction;
         std::shared_ptr<BITFramework::Position> m_Position;
         std::shared_ptr<PatrolComponent> m_PatrolComponent;
 

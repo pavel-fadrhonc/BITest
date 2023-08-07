@@ -15,6 +15,9 @@ namespace BITGame
         void OnCollision(bf::Entity& entity) const override;
 
         ~PlayerCollision() override = default;
+
+    protected:
+        std::ostream& print(std::ostream& os) const override;
     };
 
 }

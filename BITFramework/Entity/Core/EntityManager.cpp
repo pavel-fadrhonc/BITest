@@ -38,6 +38,23 @@ namespace BITFramework
         }
     }
 
+    void EntityManager::AddComponent(const Entity& entity, std::shared_ptr<Component> component)
+    {
+        m_Components[entity.getId()].push_back(component);
+    }
+
+    void EntityManager::RemoveComponent(const Entity& entity, std::shared_ptr<Component> component)
+    {
+        auto& compCollection = m_Components[entity.getId()];
+        
+        auto compIt = std::find_if(compCollection.begin(), compCollection.end(), [&](auto comp)
+        {
+            return component.get() == comp.get();
+        });
+        if (compIt != compCollection.end())
+            compCollection.erase(compIt);
+    }
+
     void EntityManager::DeleteEntityImpl(Entity* entity)
     {
         assert(entity != nullptr);

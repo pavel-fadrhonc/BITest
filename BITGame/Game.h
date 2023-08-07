@@ -50,7 +50,6 @@ namespace BITGame
         std::vector<std::weak_ptr<bf::Entity>> m_GameEntities;
         std::unique_ptr<Grid> m_Grid;
         std::weak_ptr<bf::Entity> m_PlayerEntity;
-        BITFramework::MoveInDirection* m_PlayerMoveAction;
         GameStateType m_GameState{GameStateType::PLAYING};
 
     private:

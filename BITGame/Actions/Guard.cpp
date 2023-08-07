@@ -23,7 +23,8 @@ namespace BITGame
 
         auto direction = *m_CurrentWaypoint - m_Position->GetPosVec3();
         
-        m_MoveAction = &Create<bf::MoveInDirection>(m_Entity, direction);
+        Create<bf::MoveInDirection>(m_Entity, direction);
+        m_MoveAction = *m_Entity.get().getActionManager().GetObject<bf::MoveInDirection>();
         Create<bf::Collide>(m_Entity, Game::COLLIDE_DISTANCE);
     }
 
@@ -37,7 +38,8 @@ namespace BITGame
                 m_CurrentWaypoint = m_PatrolComponent->GetWaypoints().cbegin();
             }
 
-            m_MoveAction->SetDirection(*m_CurrentWaypoint - m_Position->GetPosVec3());
+            if (!m_MoveAction.expired())
+                m_MoveAction.lock()->SetDirection(*m_CurrentWaypoint - m_Position->GetPosVec3());
         }
     }
 
@@ -48,5 +50,12 @@ namespace BITGame
         {
             BITFramework::EventDispatcher::Instance().DispatchEvent(PlayerLostEvent{});
         }
+    }
+
+    std::ostream& Guard::print(std::ostream& os) const
+    {
+        os << "Guard(Position:" << m_Position->GetPosVec3() << ")";
+
+        return os;
     }
 }

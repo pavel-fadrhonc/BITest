@@ -34,67 +34,17 @@ namespace BITFramework
         }
 
         vec3 operator+(const vec3& vec) const;
+        vec3 operator-(const vec3& vec) const;
+        vec3 operator*(float scalar) const;
+        void operator+=(const vec3& vec);
+        void operator*=(float scalar);
+        bool operator==(const vec3& vec) const;
 
-        vec3 operator-(const vec3& vec) const
-        {
-            return {m_x - vec.m_x, m_y - vec.m_y, m_z - vec.m_z};
-        }
-
-        vec3 operator*(float scalar) const
-        {
-            return {m_x * scalar, m_y * scalar, m_z * scalar};
-        }
-
-        void operator+=(const vec3& vec)
-        {
-            m_x += vec.m_x;
-            m_y += vec.m_y;
-            m_z += vec.m_z;
-        }
-
-        void operator*=(float scalar)
-        {
-            m_x *= scalar;
-            m_y *= scalar;
-            m_z *= scalar;
-        }
-
-        void normalize()
-        {
-            float length = this->length();
-            if (length < FLOAT_DELTA)
-                return;
-            
-            m_x /= length;
-            m_y /= length;
-            m_z /= length;
-        }
-
-        float length()
-        {
-            return std::sqrt(m_x * m_x + m_y * m_y + m_z * m_z);
-        }
-
-        float lengthSquared()
-        {
-            return m_x * m_x + m_y * m_y + m_z * m_z;
-        }
-
-        float distanceTo(const vec3& vec) const
-        {
-            return std::sqrt(
-                vec.m_x - m_x * vec.m_x - m_x +
-                vec.m_y - m_y * vec.m_y - m_y +
-                vec.m_z - m_z * vec.m_z - m_z);
-        }
-
-        float distanceToSquared(const vec3& vec) const
-        {
-            return
-                (vec.m_x - m_x) * (vec.m_x - m_x) +
-                (vec.m_y - m_y) * (vec.m_y - m_y) +
-                (vec.m_z - m_z) * (vec.m_z - m_z);
-        }
+        void normalize();
+        float length();
+        float lengthSquared();
+        float distanceTo(const vec3& vec) const;
+        float distanceToSquared(const vec3& vec) const;
 
     private:
         float m_x, m_y, m_z;

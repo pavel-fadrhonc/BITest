@@ -14,11 +14,12 @@ namespace BITFramework
         EntityManager& operator=(const EntityManager& other) = delete;
         EntityManager(EntityManager&& other) = delete;
         EntityManager& operator=(EntityManager&& other) = delete;
+        ~EntityManager() = default;
         
         static EntityManager& Instance() {return *s_Instance;}
         
         std::weak_ptr<Entity> CreateEntity();
-        void DeleteEntity(Entity* Entity);
+        void DeleteEntity(Entity* entity);
 
         void Update();
 
@@ -40,14 +41,11 @@ namespace BITFramework
             return nullptr;
         }
 
-        void AddComponent(const Entity& entity, std::shared_ptr<Component> component)
-        {
-            m_Components[entity.getId()].push_back(component);
-        }
+        void AddComponent(const Entity& entity, std::shared_ptr<Component> component);
+        void RemoveComponent(const Entity& entity, std::shared_ptr<Component> component);
 
     private:
-        EntityManager()
-        {}
+        EntityManager() = default;
 
         void DeleteEntityImpl(Entity* entity);
         

@@ -21,8 +21,6 @@ namespace BITFramework
             explicit Iterator(GenericCollection* col, size_t index = 0)
                 : m_Collection(col), m_Index(index)
             {}
-
-            Iterator& operator=(const Iterator& it) {m_Collection = it.m_Collection; m_Index = it.m_Index; return *this;} 
             
             reference operator*() const { return *(m_Collection->m_Array + m_Index); }
             pointer operator->() { return m_Collection->m_Array + m_Index; }
@@ -71,8 +69,6 @@ namespace BITFramework
             explicit ConstantIterator(const GenericCollection* col, size_t index = 0)
                 : m_Collection(col), m_Index(index)
             {}
-
-            ConstantIterator& operator=(const ConstantIterator&) = default; 
             
             const reference operator*() const { return *(m_Collection->m_Array + m_Index); }
             pointer operator->() { return m_Collection->m_Array + m_Index; }
@@ -152,19 +148,22 @@ namespace BITFramework
             return *this;
         }
 
-        T& operator[](size_t index)
+        T& at(size_t index)
         {
             if (index >= m_Size)
                 throw std::out_of_range("Attempt to access array of out of range!");
             return m_Array[index];
         }
 
-        const T& operator[](size_t index) const
+        const T& at(size_t index) const
         {
             if (index >= m_Size)
                 throw std::out_of_range("Attempt to access array of out of range!");
             return m_Array[index];
         }
+        
+        T& operator[](size_t index)  { return m_Array[index]; }
+        const T& operator[](size_t index) const { return m_Array[index]; }
 
         bool operator==(const GenericCollection& col) const { return this == &col; }
 

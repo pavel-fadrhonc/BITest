@@ -6,25 +6,14 @@
 
 namespace BITFramework
 {
-    
-    
-    // EntityActionManager::EntityActionManager(const EntityActionManager& other)
-    //     : ObjectManager<EntityAction>(other)
-    // {}
-
-    const std::vector<std::shared_ptr<EntityAction>>& EntityActionManager::GetVisibleActions()
+    std::vector<std::weak_ptr<EntityAction>> EntityActionManager::GetVisibleActions() const
     {
-        m_VisibleActions.clear();
-        // for (const auto& action: m_Objects)
-        // {
-        //     if (action->CanBeVisible())
-        //         m_VisibleActions.push_back(action);
-        // }
+        auto visibleActions = std::vector<std::weak_ptr<EntityAction>>{};
 
-        std::copy_if(m_Objects.begin(), m_Objects.end(), m_VisibleActions.begin(),
+        std::copy_if(m_Objects.cbegin(), m_Objects.cend(), std::back_inserter(visibleActions),
             [](const auto& action){ return action->CanBeVisible(); });
 
-        return m_VisibleActions;
+        return visibleActions;
     }
 }
 

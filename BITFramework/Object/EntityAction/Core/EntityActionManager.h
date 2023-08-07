@@ -13,8 +13,11 @@ namespace BITFramework
         {}
         
         EntityActionManager(const EntityActionManager& other) = delete;
+        EntityActionManager& operator=(const EntityActionManager& om) = delete;
+        EntityActionManager(EntityActionManager&& other) = delete;
+        EntityActionManager& operator=(EntityActionManager&& om) = delete;
 
-        const std::vector<std::shared_ptr<EntityAction>>& GetVisibleActions();
+        std::vector<std::weak_ptr<EntityAction>> GetVisibleActions() const;
 
         template
         <typename TFunc, typename TDerived, typename TBase, typename ...TArgs>
@@ -26,6 +29,11 @@ namespace BITFramework
             }
         }
 
+        /**
+         * \brief Invokes a member function on all objects of type TDerived
+         * \param pm pointer to a EntityAction derived class member function 
+         * \param args arguments for the member function
+         */
         template
         <typename TFunc, typename TDerived, typename ...TArgs>
         void InvokeAll(TFunc TDerived::* pm, TArgs... args)
@@ -39,9 +47,6 @@ namespace BITFramework
                 }
             }
         }
-
-    private:
-        std::vector<std::shared_ptr<EntityAction>> m_VisibleActions;
     };
 }
 

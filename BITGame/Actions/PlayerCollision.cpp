@@ -27,6 +27,12 @@ namespace BITGame
                 bf::EventDispatcher::Instance().DispatchEvent(PlayerWonEvent{});
         }
     }
-    
+
+    std::ostream& PlayerCollision::print(std::ostream& os) const
+    {
+        os << "PlayerCollision()";
+        
+        return os;
+    }
 }
 

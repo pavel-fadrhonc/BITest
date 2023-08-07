@@ -8,7 +8,7 @@ namespace BITFramework
     std::ostream& Position::print(std::ostream& os) const
     {
         this->Component::print(os);
-        os << "Position( " << m_pos << " )";
+        os << "Position( " << m_Pos << " )";
 
         return os;
     }

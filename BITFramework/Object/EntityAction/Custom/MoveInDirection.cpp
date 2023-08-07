@@ -20,5 +20,12 @@ namespace BITFramework
         if (pos)
             pos->GetPosVec3() += m_Direction * dt;
     }
+
+    std::ostream& MoveInDirection::print(std::ostream& os) const
+    {
+        os << "MoveInDirection(Direction:" << m_Direction << ")";
+
+        return os;
+    }
 }
 

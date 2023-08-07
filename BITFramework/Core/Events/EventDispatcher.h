@@ -19,6 +19,7 @@ namespace BITFramework
         EventDispatcher& operator=(const EventDispatcher& other) = delete;
         EventDispatcher(EventDispatcher&& other) = delete;
         EventDispatcher& operator=(EventDispatcher&& other) = delete;
+        ~EventDispatcher() = default;
 
         static EventDispatcher& Instance() {return *s_Instance;}
 
@@ -41,8 +42,7 @@ namespace BITFramework
         }
 
     private:
-        EventDispatcher()
-        {}
+        EventDispatcher() = default;
 
         std::map<size_t, std::vector<void*>> m_Handlers{};
     

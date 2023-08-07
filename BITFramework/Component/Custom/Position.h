@@ -9,16 +9,16 @@ namespace BITFramework
     {
     public:
         Position(const Entity& entity, vec3 pos)
-            : Component(entity, "Position"), m_pos(pos)
+            : Component(entity, "Position"), m_Pos(pos)
         {}
 
-        vec3& GetPosVec3() { return m_pos; }
+        vec3& GetPosVec3() { return m_Pos; }
 
     protected:
         std::ostream& print(std::ostream& os) const override;
 
     private:
-        vec3 m_pos;
+        vec3 m_Pos;
     };
 }
 

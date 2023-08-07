@@ -32,5 +32,12 @@ namespace BITFramework
             }
         }
     }
+
+    std::ostream& Collide::print(std::ostream& os) const
+    {
+        os << "Collide(CollideDistance:" << m_CollideDistance << ")";
+
+        return os;
+    }
 }
 
