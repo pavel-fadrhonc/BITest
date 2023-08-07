@@ -45,8 +45,8 @@ namespace BITGame
 
     void Guard::OnCollision(BITFramework::Entity& entity) const
     {
-        auto playerTag = BITFramework::EntityManager::Instance().GetComponent<PlayerComponent>(entity);
-        if (playerTag)
+        auto playerComp = BITFramework::EntityManager::Instance().GetComponent<PlayerComponent>(entity);
+        if (playerComp.has_value())
         {
             BITFramework::EventDispatcher::Instance().DispatchEvent(PlayerLostEvent{});
         }

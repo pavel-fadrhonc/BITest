@@ -168,7 +168,7 @@ namespace BITGame
     void Game::WriteOutStory() const
     {
         std::cout << R"(
-        You play as Nico - an elusive thief that's part of secret elite organization CHOCKMA. They are alway able to obtain most precious and rare artefacts available.
+        You play as Nico - an elusive thief that's part of secret elite organization CHOCKMA. They are always able to obtain most precious and rare artefacts available.
         Your mission is to infiltrate heavily protected mansion and steal the purple diamond - latest hit amongst the top 0.1%.
         Your colleague Brom already turned off all security and also lights and you roped down to the room with the diamond.
         The room is pitch black and multiple guards are roaming the space. Neither of you can see anything but you have an advantage.

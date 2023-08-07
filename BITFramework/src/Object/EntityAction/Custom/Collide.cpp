@@ -12,7 +12,9 @@ namespace BITFramework
         m_CollideDistance(collideDistance),
         m_CollideDistanceSquared(collideDistance * collideDistance)
     {
-        m_Position = EntityManager::Instance().GetComponent<Position>(m_Entity);
+        auto posOpt = EntityManager::Instance().GetComponent<Position>(m_Entity);
+        if (posOpt.has_value())
+            m_Position = posOpt.value();
     }
 
     void Collide::Update(float dt)
@@ -22,13 +24,14 @@ namespace BITFramework
         {
             if (&**entityIt == &m_Entity.get()) // Skip self
                 continue;
+
+            auto pos = EntityManager::Instance().GetComponent<Position>(**entityIt);
+            if (!pos.has_value())
+                continue;
             
-            if (auto pos = EntityManager::Instance().GetComponent<Position>(**entityIt))
+            if (m_Position.lock()->GetPosVec3().distanceToSquared(pos.value().lock()->GetPosVec3()) < m_CollideDistanceSquared)
             {
-                if (m_Position->GetPosVec3().distanceToSquared(pos->GetPosVec3()) < m_CollideDistanceSquared)
-                {
-                    m_Entity.get().getActionManager().InvokeAll(&ICollisionHandler::OnCollision, std::reference_wrapper(**entityIt));
-                }
+                m_Entity.get().getActionManager().InvokeAll(&ICollisionHandler::OnCollision, std::reference_wrapper(**entityIt));
             }
         }
     }

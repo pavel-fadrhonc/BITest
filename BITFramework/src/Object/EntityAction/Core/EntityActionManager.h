@@ -31,7 +31,7 @@ namespace BITFramework
 
         /**
          * \brief Invokes a member function on all objects of type TDerived
-         * \param pm pointer to a EntityAction derived class member function 
+         * \param pm pointer to a function implemented by some EntityAction derived class on this Entity
          * \param args arguments for the member function
          */
         template

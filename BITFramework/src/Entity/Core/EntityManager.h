@@ -27,18 +27,20 @@ namespace BITFramework
         EntityCollection::const_iterator cend() const { return m_Entities.cend(); }
 
         template<typename T>
-        T* GetComponent(const Entity& entity)
+        std::optional<std::weak_ptr<T>> GetComponent(const Entity& entity)
         {
             if (m_Components.count(entity.getId()) == 0)
-                return nullptr;
+                return {};
 
             for (auto& component : m_Components[entity.getId()])
             {
                 if (T* t = dynamic_cast<T*>(component.get()))
-                    return t;
+                {
+                    return {std::weak_ptr<T>(std::dynamic_pointer_cast<T>(component))};
+                }
             }
 
-            return nullptr;
+            return {};
         }
 
         void AddComponent(const Entity& entity, std::shared_ptr<Component> component);

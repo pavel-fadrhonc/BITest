@@ -17,7 +17,7 @@ namespace BITFramework
     private:
         float m_CollideDistance;
         float m_CollideDistanceSquared;
-        Position* m_Position;
+        std::weak_ptr<Position> m_Position;
     };
 }
 

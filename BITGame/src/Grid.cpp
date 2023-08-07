@@ -17,12 +17,13 @@ void Grid::Display()
     // add records for entities
     for (auto [entity, sign] : m_Entities)
     {
-        if (auto pos = BITFramework::EntityManager::Instance().GetComponent<BITFramework::Position>(*entity.lock()))
+        auto pos = BITFramework::EntityManager::Instance().GetComponent<BITFramework::Position>(*entity.lock());
+        if (pos.has_value())
         {
-            if (!IsInBounds(pos->GetPosVec3()))
+            if (!IsInBounds(pos->lock()->GetPosVec3()))
                 continue;
 
-            int index = GetIndex(pos->GetPosVec3());
+            int index = GetIndex(pos->lock()->GetPosVec3());
             entitySigns[index] = sign;
         }
     }
