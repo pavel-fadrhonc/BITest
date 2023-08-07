@@ -33,7 +33,7 @@ The project contains [TestGenericCollection.cpp](/BITFramework/src/Tests/Generic
 
 The solution also contains BITGame project that serves as comprehensive example of how the framework can be used in real-world usage.
 A simple game has been implemented. All the important logic is contained in [Game](BITGame/src/Game.cpp) class as well as simple Command pattern implementation.
-I also implemented simple [EventDispatcher](/BITFramework/src/Core/Events/EventDispatcher.cpp) for decoupling between caller and callee.
+I also implemented simple [EventDispatcher](/BITFramework/src/Core/Events/EventDispatcher.h) for decoupling between caller and callee.
 
 ### Build & Run
 Project files for your IDE as well as binaries can be build using Cmake.
