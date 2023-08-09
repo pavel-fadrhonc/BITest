@@ -14,6 +14,11 @@ namespace BITFramework
         
         friend std::ostream& operator<<(std::ostream& os, const Component& e);
 
+        Component(const Component&) = delete;
+        Component& operator=(const Component&) = delete;
+        Component(Component&&) = delete;
+        Component& operator=(Component&&) = delete;
+
         virtual ~Component() = 0;
 
     protected:

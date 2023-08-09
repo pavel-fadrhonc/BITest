@@ -9,6 +9,10 @@ namespace BITFramework
     public:
         Object(Entity& owningEntity);
         virtual ~Object() = 0;
+        Object(const Object&) = delete;
+        Object& operator=(const Object&) = delete;
+        Object(Object&&) = delete;
+        Object& operator=(Object&&) = delete;
 
         friend std::ostream& operator<<(std::ostream& os, const Object& e);
 

@@ -21,7 +21,7 @@ namespace BITFramework
 
         template
         <typename TFunc, typename TDerived, typename TBase, typename ...TArgs>
-        void Invoke(TFunc TDerived::* pm, TBase& base, TArgs... args)
+        void Invoke(TFunc TDerived::* pm, TBase& base, TArgs&&... args)
         {
             if (TDerived* der = dynamic_cast<TDerived*>(&base))
             {
@@ -36,7 +36,7 @@ namespace BITFramework
          */
         template
         <typename TFunc, typename TDerived, typename ...TArgs>
-        void InvokeAll(TFunc TDerived::* pm, TArgs... args)
+        void InvokeAll(TFunc TDerived::* pm, TArgs&&... args)
         {
             for(auto obj : m_Objects)
             {
