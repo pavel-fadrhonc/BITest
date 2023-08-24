@@ -50,14 +50,13 @@ On another platforms, run cmake commands appropriate to that platform and IDE (o
 
 ### Limitations/Potential future work
 
-* Custom EntityActions should have Init method to use to initialize themselves like getting some components or other actions. Currently the initialization happens in construction before the whole entity is constructed. That means if we relly on some other Component or EntityAction to be added they might not be constructed yet (If construction EntityAction like Guard is used).
+* Custom EntityActions should have Init method so they could perform some initialization actions like getting some components or other actions. Currently the initialization happens in construction before the whole entity is constructed. That means if we relly on some other Component or EntityAction to be added they might not be constructed yet (If construction EntityAction like Guard is used).
 
 * The order of adding actions on entites or just creating entites matter if you update them all in bulk based on that order. It might be good to introduce some dependency declaration in actions so that they can be properly scheduled.
 
 * Only one type of object (EntityAction) should be allowed to be added to ActionManager.
 
 * Currently, weak_ptr is used for getting resource that can be invalidated like Entity, EntityAction or Component. Any party can hold these references and needs to make sure that they are still alive by checking weak_ptr::expired() This system has problem though because by locking the resource we create shared_ptr which increases the resource reference count and if the resource is suppose to be removed (i.e. the holding entity was deleted) then it isn't and using it can cause access to deleted memory. Ideally, custom class would be created that can hold reference to underlaying resource and check it's liveability but does not allow preventing it from being removed.
-
 
 
 ### Spent time report
