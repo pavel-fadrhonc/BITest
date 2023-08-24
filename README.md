@@ -16,7 +16,7 @@ Components are created and obtained via EntityManager singleton object and all E
 The reasons behind this are 
 
 1. to demonstrate usage of Singleton pattern used to access a manager
-2. to make a first step towards continuous storage of Components. One of the reasons for using ECS is that Components can be stored continuously in memory, making their processing via System cache friendly.
+2. to make a first step towards contiguous storage of Components. One of the reasons for using ECS is that Components can be stored contiguously in memory, making their processing via System cache friendly.
 
 ### UML
 This is a simple UML graph illustrating relationships between core components of the system.
