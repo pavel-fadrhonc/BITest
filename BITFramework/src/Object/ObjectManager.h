@@ -20,7 +20,7 @@ namespace BITFramework
         void UnregisterObject(const std::shared_ptr<T>& obj)
         {
             auto objPos = std::find_if(m_Objects.begin(), m_Objects.end(),
-                [&obj](auto ptr){ return ptr.get() == obj.get(); });
+                [&obj](const auto& ptr){ return ptr.get() == obj.get(); });
             if (objPos != m_Objects.end())
             {
                 m_Objects.RemoveFirst(*objPos);
@@ -32,7 +32,7 @@ namespace BITFramework
         std::optional<std::weak_ptr<Tderived>> GetObject()
         {
             auto objIt = std::find_if(m_Objects.begin(), m_Objects.end(),
-                [](auto ptr){ return dynamic_cast<Tderived*>(ptr.get()) != nullptr; });
+                [](const auto& ptr){ return dynamic_cast<Tderived*>(ptr.get()) != nullptr; });
             if (objIt != m_Objects.end())
             {
                 auto obj = *objIt;
@@ -48,6 +48,9 @@ namespace BITFramework
         
         ObjectManager(const ObjectManager& other) = delete;
         ObjectManager& operator=(const ObjectManager& om) = delete;
+        ObjectManager(ObjectManager&& other) = delete;
+        ObjectManager& operator=(ObjectManager&& om) = delete;
+        virtual ~ObjectManager() = default;
 
     protected:
         GenericCollection<std::shared_ptr<T>> m_Objects;

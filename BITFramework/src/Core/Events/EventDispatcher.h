@@ -44,7 +44,7 @@ namespace BITFramework
     private:
         EventDispatcher() = default;
 
-        std::map<size_t, std::vector<void*>> m_Handlers{};
+        std::unordered_map<size_t, std::vector<void*>> m_Handlers{};
     
         static std::unique_ptr<EventDispatcher> s_Instance;
     };

@@ -95,17 +95,15 @@ namespace BITGame
             });   
 
         // create grid
-        Grid* grid = new Grid(1, { GRID_SIZE * -0.5f, GRID_SIZE * 0.5f});
-        m_Grid.reset(grid);
-        m_Grid->AddEntity(diamondEntity, 'd');
-        m_Grid->AddEntity(exitEntity, 'e');
-        m_Grid->AddEntity(m_PlayerEntity, 'n');
-        m_Grid->AddEntity(guardLShape1, 'g');
-        m_Grid->AddEntity(guardLShape2, 'g');
-        m_Grid->AddEntity(guardSquareM, 'g');
-        m_Grid->AddEntity(guardSquareL, 'g');
-        m_Grid->AddEntity(guardDiamondPathL, 'g');
-        m_Grid->AddEntity(guardDiamondPathS, 'g');
+        m_Grid.AddEntity(diamondEntity, 'd');
+        m_Grid.AddEntity(exitEntity, 'e');
+        m_Grid.AddEntity(m_PlayerEntity, 'n');
+        m_Grid.AddEntity(guardLShape1, 'g');
+        m_Grid.AddEntity(guardLShape2, 'g');
+        m_Grid.AddEntity(guardSquareM, 'g');
+        m_Grid.AddEntity(guardSquareL, 'g');
+        m_Grid.AddEntity(guardDiamondPathL, 'g');
+        m_Grid.AddEntity(guardDiamondPathS, 'g');
 
         // add entities that we will update
         m_GameEntities.emplace_back(diamondEntity);
@@ -217,9 +215,9 @@ namespace BITGame
     
     void Game::MoveCommand::Execute() const
     {
-        Game::Instance().m_Grid->Update(DELTA_TIME);
+        Game::Instance().m_Grid.Update(DELTA_TIME);
         bf::EntityManager::Instance().Update();
-        Game::Instance().m_Grid->Cleanup();
+        Game::Instance().m_Grid.Cleanup();
         
         bf::println("Player and guards moved");
     }
@@ -230,7 +228,7 @@ namespace BITGame
     
     void Game::ScanCommand::Execute() const
     {
-        Game::Instance().m_Grid->Display();
+        Game::Instance().m_Grid.Display();
     }
 
     ////////////////////////

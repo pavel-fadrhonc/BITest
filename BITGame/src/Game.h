@@ -42,13 +42,14 @@ namespace BITGame
 
     private:
         Game()
+            : m_Grid(1, { GRID_SIZE * -0.5f, GRID_SIZE * 0.5f})
         {}
     
     private:
         static std::unique_ptr<Game> s_Instance;
 
         std::vector<std::weak_ptr<bf::Entity>> m_GameEntities;
-        std::unique_ptr<Grid> m_Grid;
+        Grid m_Grid;
         std::weak_ptr<bf::Entity> m_PlayerEntity;
         GameStateType m_GameState{GameStateType::PLAYING};
 

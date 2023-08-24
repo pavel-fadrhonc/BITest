@@ -43,7 +43,7 @@ void Grid::Display()
     }
 }
 
-int Grid::GetIndex(const vec3& pos)
+int Grid::GetIndex(const vec3& pos) const
 {
     // converts pos to position in grid and then to index
     auto [gridPosX, gridPosY] = std::make_pair(std::floor(pos.getX() - m_Boundaries.first.getX() / m_Step),
@@ -79,7 +79,7 @@ void Grid::Cleanup()
     }
 }
 
-bool Grid::IsInBounds(const vec3& pos)
+bool Grid::IsInBounds(const vec3& pos) const
 {
     return pos.getX() > m_Boundaries.first.getX() && pos.getX() < m_Boundaries.second.getX() &&
            pos.getY() > m_Boundaries.first.getY() && pos.getY() < m_Boundaries.second.getY() &&

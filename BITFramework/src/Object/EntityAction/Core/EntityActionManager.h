@@ -16,6 +16,7 @@ namespace BITFramework
         EntityActionManager& operator=(const EntityActionManager& om) = delete;
         EntityActionManager(EntityActionManager&& other) = delete;
         EntityActionManager& operator=(EntityActionManager&& om) = delete;
+        ~EntityActionManager() = default;
 
         std::vector<std::weak_ptr<EntityAction>> GetVisibleActions() const;
 
